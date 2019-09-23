@@ -3,7 +3,7 @@
 
 在开发本地压缩过程出现问题，目前进度：debuging
 
-软件配备热更新，在 [tinypngTool](http://www.gdutzuo.top/electron/tinypngTool/tinypngTool Setup 1.0.0.exe)可下载 下载后自动更新到最新版本
+软件配备热更新，在 [tinypngTool](http://www.gdutzuo.top/electron/tinypngTool/tinypngTool%20Setup%201.0.0.exe)可下载 下载后自动更新到最新版本
 
 
 ---
