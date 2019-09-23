@@ -6,6 +6,9 @@
 软件配备热更新，在 [tinypngTool](http://www.gdutzuo.top/electron/tinypngTool/tinypngTool%20Setup%201.0.0.exe)可下载 下载后自动更新到最新版本
 
 
+![demo](https://github.com/qqw78901/tiny/raw/master/demo.gif)
+
+
 ---
 
 > tiny png
