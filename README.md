@@ -9,7 +9,7 @@
 
 - 支持[tinyPng](https://tinypng.com/)方式压缩
 - 支持本地压缩
-- 软件配备热更新，在 [tinypngTool-Win版](http://www.gdutzuo.top/electron/tinypngTool/tinypngTool%20Setup%201.0.0.exe)可下载 下载后自动更新到最新版本，[mac版dmg地址](http://www.gdutzuo.top/electron/tinypngTool/tinypng-1.3.0.dmg)
+- 软件配备热更新，在 [tinypngTool-Win版](http://www.gdutzuo.top/electron/tinypngTool/tinypngTool.exe)可下载 下载后自动更新到最新版本，[mac版dmg地址](http://www.gdutzuo.top/electron/tinypngTool/tinypng-1.3.0.dmg)
 
 
 
