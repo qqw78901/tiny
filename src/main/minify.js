@@ -1,9 +1,9 @@
 import {ipcMain} from 'electron'
+
 // const imagemin = require('imagemin');
 // const imageminMozjpeg = require('imagemin-mozjpeg');
 // const imageminPngquant = require('imagemin-pngquant');
 import imagemin from 'imagemin';
-
 import imageminMozjpeg from 'imagemin-mozjpeg'
 import imageminPngquant from 'imagemin-pngquant'
 
@@ -11,19 +11,19 @@ const tinify = require("tinify");
 // const Mini = require('./mini.js');
 const path = require('path');
 const fs = require('fs');
-const winston = require('winston');
-const {createLogger, format, transports} = winston;
-const {combine, timestamp, prettyPrint} = format;
-const logger = createLogger({
-    format: combine(
-        timestamp(),
-        prettyPrint()
-    ),
-    transports: [
-        new transports.Console(),
-        new transports.File({filename: 'combined.log'})
-    ]
-});
+// const winston = require('winston');
+// const {createLogger, format, transports} = winston;
+// const {combine, timestamp, prettyPrint} = format;
+// const logger = createLogger({
+//     format: combine(
+//         timestamp(),
+//         prettyPrint()
+//     ),
+//     transports: [
+//         new transports.Console(),
+//         new transports.File({filename: 'combined.log'})
+//     ]
+// });
 tinify.key = "MRipunF_0WpIfMxnrPa9LQEDLny7VL_m";
 export default class Minify {
     constructor(mainWindow) {
@@ -46,11 +46,8 @@ export default class Minify {
             this.length = files.length;
             this.done = 0;
             if (type === 1) {
-                logger.info("进入type1");
-
                 tinify.validate((err) => {
                     if (err) {
-                        logger.info(tinify.compressionCount || '其他原因');
                         this.sender('密钥失效,使用本地压缩');
                         this.localMinify(files, outputPath);
                     } else {
@@ -60,7 +57,6 @@ export default class Minify {
                     }
                 });
             } else {
-                logger.info("进入type2");
                 this.localMinify(files, outputPath);
             }
         });
@@ -72,6 +68,13 @@ export default class Minify {
      */
     sender(msg) {
         this.mainWindow.webContents.send('minifyCallback', msg)
+    }
+    /**
+     * 发送通知
+     * @param msg
+     */
+    notice(msg) {
+        this.mainWindow.webContents.send('notice', msg)
     }
 
     /**
@@ -111,7 +114,6 @@ export default class Minify {
                 // A network connection error occurred.
             } else if (err) {
                 this.sender(err.message);
-                logger.info(err);
                 // Something else went wrong, unrelated to the Tinify API.
             } else {
                 ++this.done;
@@ -127,22 +129,25 @@ export default class Minify {
      */
     localMinify(filesArray, outputPath) {
         // this.setProgress(0.01);
-        filesArray.forEach(filePath => {
-            let basename  = path.basename(filePath)
-            let buffer = fs.readFileSync(filePath);
-            imagemin.buffer(buffer, {
-                use: [
-                    imageminMozjpeg(),
-                    imageminPngquant()
-                ]
-            }).then((file) => {
-                this.done++;
-                this.setProgress();
-                logger.info(file);
-            }).catch((err)=>{
-                logger.info(err);
-            });
-        })
+        // filesArray.forEach(filePath => {
+        //     let basename = path.basename(filePath)
+        //     this.notice(filePath);
+            
+        // })
+        this.notice(JSON.stringify(filesArray) + outputPath);
+        imagemin(filesArray, path.join(outputPath,''), {
+            use: [
+                imageminMozjpeg({}),
+                imageminPngquant({})
+            ]
+        }).then((file) => {
+            this.done++;
+            this.setProgress();
+        }).catch((err) => {
+            setTimeout(() => {
+                this.sender(JSON.stringify(err));
+            }, 2000);
+        });
         /*   imagemin(filesArray, outputPath, {
                use: [
                    imageminMozjpeg(),

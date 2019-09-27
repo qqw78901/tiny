@@ -24,7 +24,7 @@
         </p>
         <p>
             压缩方式：
-            <label>tinyPng<input type="radio" checked name="tinyType" :value="1" v-model="tinyType"/></label>
+            <label>tinyPng<input type="radio" name="tinyType" :value="1" v-model="tinyType"/></label>
             <label>imagemin[本地]<input type="radio" name="tinyType" :value="2" v-model="tinyType">
             </label>
         </p>
@@ -144,8 +144,14 @@
         },
         mounted() {
             ipcRenderer.on('updateMessage',(msg)=>{
-                layer.confirm(msg);
+                if(typeof msg ==='string'){
+                    layer.confirm(msg);
+                }
             });
+            ipcRenderer.on('notice',(msg)=>{
+                layer.msg(msg);
+            });
+
             ipcRenderer.on('minifyCallback', this.minifyCallback)
             document.ondragleave = (e) => {
                 e.preventDefault();
