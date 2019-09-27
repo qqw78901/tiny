@@ -55,7 +55,7 @@ function updateHandle(){
         updateAva:'检测到新版本，正在下载……',
         updateNotAva:'现在使用的就是最新版本，不用更新',
     };
-    autoUpdater.setFeedURL('http://120.27.110.198/electron/tinypngTool');
+    autoUpdater.setFeedURL('https://www.gdutzuo.top/electron/tinypngTool');
     autoUpdater.on('error', function(error){
         sendUpdateMessage(message.error)
     });
