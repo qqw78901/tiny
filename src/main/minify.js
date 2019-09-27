@@ -1,4 +1,4 @@
-import {ipcMain} from 'electron'
+import { ipcMain } from 'electron'
 
 const imagemin = require('imagemin');
 const imageminMozjpeg = require('imagemin-mozjpeg');
@@ -132,34 +132,29 @@ export default class Minify {
         // filesArray.forEach(filePath => {
         //     let basename = path.basename(filePath)
         //     this.notice(filePath);
-            
+
         // })
-        this.notice(JSON.stringify(filesArray) + outputPath);
-        imagemin(filesArray, path.join(outputPath,''), {
+        // imagemin(filesArray,).then((result) => {
+        //     this.notice('success');
+        //     this.done++;
+        //     this.setProgress();
+        // }).catch((err) => {
+        //     setTimeout(() => {
+        //         this.notice(JSON.stringify(err));
+        //     }, 2000);
+        // });
+        imagemin(filesArray, outputPath, {
             use: [
-                imageminMozjpeg({}),
-                imageminPngquant({})
+                imageminMozjpeg(),
+                imageminPngquant()
             ]
         }).then((file) => {
-            this.done++;
+            this.done = this.length;
+            this.sender('使用imagemin压缩完成');
             this.setProgress();
         }).catch((err) => {
-            setTimeout(() => {
-                this.sender(JSON.stringify(err));
-            }, 2000);
+            this.notice(JSON.stringify(err));
         });
-        /*   imagemin(filesArray, outputPath, {
-               use: [
-                   imageminMozjpeg(),
-                   imageminPngquant()
-               ]
-           }).then((file) => {
-               this.done = this.length;
-               this.sender('使用imagemin压缩完成');
-               this.setProgress();
-           }).catch((info) => {
-               logger.info(info);
-           });*/
     }
 
 }

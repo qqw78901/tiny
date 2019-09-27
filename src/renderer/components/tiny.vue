@@ -95,7 +95,7 @@
             selectFiles() {
                 dialog.showOpenDialog({
                     title: '选择图片',
-                    filters: [{name: '图片', extensions: ['jpg', 'png']}],
+                    filters: [{name: '图片', extensions: ['jpg', 'png','jpeg']}],
                     properties: ['openFile', 'multiSelections']
                 }, (filenPaths) => {
                     if (filenPaths.length > 0) {
@@ -143,12 +143,13 @@
             }
         },
         mounted() {
-            ipcRenderer.on('updateMessage',(msg)=>{
+            ipcRenderer.on('updateMessage',(event,msg)=>{
                 if(typeof msg ==='string'){
                     layer.confirm(msg);
                 }
             });
-            ipcRenderer.on('notice',(msg)=>{
+            ipcRenderer.on('notice',(event,msg)=>{
+                console.log(msg);
                 layer.msg(msg);
             });
 
