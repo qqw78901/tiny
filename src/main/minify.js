@@ -1,11 +1,11 @@
 import {ipcMain} from 'electron'
 
-// const imagemin = require('imagemin');
-// const imageminMozjpeg = require('imagemin-mozjpeg');
-// const imageminPngquant = require('imagemin-pngquant');
-import imagemin from 'imagemin';
-import imageminMozjpeg from 'imagemin-mozjpeg'
-import imageminPngquant from 'imagemin-pngquant'
+const imagemin = require('imagemin');
+const imageminMozjpeg = require('imagemin-mozjpeg');
+const imageminPngquant = require('imagemin-pngquant');
+// import imagemin from 'imagemin';
+// import imageminMozjpeg from 'imagemin-mozjpeg'
+// import imageminPngquant from 'imagemin-pngquant'
 
 const tinify = require("tinify");
 // const Mini = require('./mini.js');
