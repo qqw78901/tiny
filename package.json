@@ -59,7 +59,7 @@
     }
   },
   "dependencies": {
-    "axios": "^0.16.1",
+    "axios": "^0.21.1",
     "imagemin": "^6.0.0",
     "imagemin-mozjpeg": "^7.0.0",
     "imagemin-pngquant": "^5.0.1",
